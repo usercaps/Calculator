@@ -1,215 +1,149 @@
-'use strict';
+let display = document.querySelector('.display'),
+    num = document.querySelectorAll('.num'),
+    clear = document.querySelector('.clear'),
+    equal = document.querySelector('.equal'),
+    fact = document.querySelector('.factorial'),
+    sin = document.querySelector('.sin'),
+    cos = document.querySelector('.cos'),
+    tan = document.querySelector('.tan'),
+    ctang = document.querySelector('.ctg'),
+    rad = document.querySelector('.rad'),
+    deg = document.querySelector('.deg'),
+    modal = document.querySelector('.modal'),
+    frame = document.querySelector('.hide'),
+    degrice = 0,
+    radiance = 0,
+    result,
+    history = [];
 
-let calculator = document.getElementById('calc_form');
-let calcDisplay = document.getElementsByTagName('input');
-let calcDisplayValue = calcDisplay.value;
-let currentCalcMode = calculator.dataset.calcMode;
-let equalBtn = document.getElementById('equally');
-let clearBtn = document.getElementById('clear');
-let dotBtn = document.getElementById('dot');
-let percentageBtn = document.getElementById('persent');
-// let sinBtn = document.getElementById('sin');
-// let cosBtn = document.getElementById('cos');
-// let tgBtn = document.getElementById('tg');
-// let ctgBtn = document.getElementById('ctg');
-let memory = [];
-let debug = false;
+for(let number of num){
+  number.addEventListener('click', () => {
+    display.value += number.innerHTML;
+  });
+};
 
+function factorial(x){
+  return (x != 1) ? x * factorial(x - 1) : 1;
+}
 
+function round(value, decimals) {
+  return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+};
 
-let numbers = [
-  document.getElementsByClassName('one'),
-  document.getElementsByClassName('two'),
-  document.getElementsByClassName('three'),
-  document.getElementsByClassName('four'),
-  document.getElementsByClassName('five'),
-  document.getElementsByClassName('six'),
-  document.getElementsByClassName('seven'),
-  document.getElementsByClassName('eight'),
-  document.getElementsByClassName('nine'),
-  document.getElementsByClassName('zero')
-];
+function ctg(x) { 
+  return 1 / Math.tan(x); 
+};
 
-let operators = [
-  document.getElementById('plus'),
-  document.getElementById('minus'),
-  document.getElementById('divide'),
-  document.getElementById('multiply'),
-];
+function radToDeg(x){
+  return x * Math.PI/180;
+}
 
-//   click
-numbers.forEach(function (element) {
-  element.addEventListener('click', function (event) {
-    event.preventDefault();
-    currentCalcMode = calculator.dataset.calcMode;
-    if (currentCalcMode === 'initial') {
-      calcDisplay.value = this.value;
-      //   memory
-      memory.push(calcDisplay.value);
-    }
-    if (currentCalcMode === 'numrer') {
-      calcDisplay.value = calcDisplay.value + this.value;
-      memory.pop();
-      memory.push(calcDisplay.value);
-    }
-    if (currentCalcMode === 'operaror') {
-      calcDisplay.value = this.value;
-      memory.push(calcDisplay.value);
-      console.log(memory);
-    }
-    let currentDisplayEl = document.getElementsByTagName('input');
-    calculator.dataset.calcMode = 'number';
-    currentCalcMode = calculator.dataset.calcMode;
-    let currentDisplayVal = parseInt(currentDisplayEl.value);
-    console.log(memory);
-  }, false)
+rad.addEventListener('click', () => {
+  if(radiance != '0'){
+    display.value = radiance;
+  } else{
+    if(display.value != ''){
+      radiance = display.value;
+    };
+  };
+  if(rad.classList.contains('grey')){
+    rad.classList.remove('grey');
+    deg.classList.add('grey');
+  };
 });
 
-// click operator
-operators.forEach(function (element) {
-  element.addEventListener('click', function (event) {
-    event.preventDefault();
-    let buttonOperator = this.getAttribute('data-operator');
-    memory.push({
-      'operator': buttonOperator
-    });
-    calculator.dataset.calcMode = 'operator';
-    console.log(memory);
-  })
+deg.addEventListener('click', () => {
+  if(degrice != '0'){
+    display.value = degrice;
+  } else{
+    if(display.value != ''){
+      degrice = display.value;
+    };
+  };
+  if(deg.classList.contains('grey')){
+    deg.classList.remove('grey');
+    rad.classList.add('grey');
+  };
 });
 
-// clear click
-clearBtn.addEventListener('click', (event) => {
-  event.preventDefault();
-  calcDisplay.value = "0";
-  memory = [];
-  calculator.dataset.calcMode = 'initial';
-  console.clear();
-}, false);
-
-//dot button
-dotBtn.addEventListener('click', (event) => {
-  event.preventDefault();
-  if (calcDisplay.value !== '0') {
-    calcDisplay.value = calcDisplay.value + '.';
+sin.addEventListener('click', () => {
+  let x = display.value;
+  if(degrice != '0'){
+    x = radToDeg(degrice);
+    display.value = round(Math.sin(x), 7)
+  } else if(radiance != '0'){
+    display.value = round(Math.sin(x), 7);
   }
-}, false);
+});
 
-// % click
-
-percentageBtn.addEventListener('click', (event) => {
-  event.preventDefault();
-  if (calcDisplay.value !== '0') {
-    calcDisplay.value = parseInt(calcDisplay.value) / 100;
+cos.addEventListener('click', () => {
+  let x = display.value;
+  if(degrice != '0'){
+    x = radToDeg(degrice);
+    display.value = round(Math.cos(x), 7)
+  } else if(radiance != '0'){
+    display.value = round(Math.cos(x), 7);
   }
-  memory = [calcDisplay.value];
-  console.log(memory);
-}, false);
+});
 
-// = click
-
-equalBtn.addEventListener('click', (event) => {
-  event.preventDefault();
-  console.log(memory);
-  let previousVal = memory[0];
-  let operaror = memory[1];
-  let currentVal = memory[2];
-
-  let calcMethodToUse = operator.operaror;
-  let result = '';
-
-  switch (calcMethodToUse) {
-    case 'add':
-      result = add(previousVal, currentVal);
-      break;
-    case 'subtract':
-      result = subtract(previousVal, currentVal);
-      break;
-    case 'multiply':
-      result = multiply(previousVal, currentVal);
-      break;
-    case 'divide':
-      result = divide(previousVal, currentVal);
-      break;
+tan.addEventListener('click', () => {
+  let x = display.value;
+  if(degrice != '0'){
+    x = radToDeg(degrice);
+    display.value = round(Math.tan(x), 7)
+  } else if(radiance != '0'){
+    display.value = round(Math.tan(x), 7);
   }
-  calcDisplay.value = result;
+});
 
-  memory = [result];
+ctang.addEventListener('click', () => {
+  let x = display.value;
+  if(degrice != '0'){
+    x = radToDeg(degrice);
+    display.value = round(Math.ctg(x), 7)
+  } else if(radiance != '0'){
+    display.value = round(Math.ctg(x), 7);
+  }
+});
 
-  console.log(memory);
+fact.addEventListener('click', () => {
+  let fct = display.value;
+  display.value = factorial(fct);
+  history.push(fct + '=' + display.value);
+});
 
-}, false);
+clear.addEventListener('click', () => {
+  display.value = '';
+  degrice = 0;
+});
 
-//OPERATOR FUNCTIONS
-
-const add = (a, b) => {
-  return (+a + +b)
-}
-const subtraction = (a, b) => {
-  return (a - b)
-}
-const multiply = (a, b) => {
-  return (a * b)
-}
-const divide = (a, b) => {
-  return (a / b)
-}
-
-
-// sin click
-
-// sinBtn.addEventListener('click', (event) => {
-//   event.preventDefault();
-//   if(calcDisplay.value !== '0'){
-//     calcDisplay.value = parseInt(math.sin(calcDisplay.value));
-//   }
-//   memory = [calcDisplay.value];
-//   console.log(memory);
-// }, false);
-
-
-
-
-
-
-
-// бинд кнопок
-window.addEventListener("keyup", checkKeyPressed, false);
-
-function checkKeyPressed(e) {
-  console.log('click');
-  // If displayfield is in focus, we can type numbers in directly instead of triggering a click
-  if (calcDisplayEl.is(':focus')) {
-    return;
+equal.addEventListener('click', () => {
+  
+  result = display.value;
+  if(result){
+    display.value = round(eval(result), 7);
+    history.push(result + '=' + display.value);
+  }
+  if(display.value == "NaN" || display.value == Infinity){
+    display.value = "У нас так не принято";
+  }
+  if(history.length > 3){
+    history.shift();
   }
 
-  // Numbers 0-9
-  for (let i = 48; i < 58; i++) {
-    console.log(i);
-
-    if (e.keyCode == [i]) {
-      $('[data-btn-val="' + ([i] - 48) + '"]').trigger('click');
-    }
+  frame.innerHTML = '';
+  frame.innerHTML = '<p> 1: ' + history[2] + '</p>' +
+                    '<p> 2: ' + history[1] + '</p>' +
+                    '<p> 3: ' + history[0] + '</p>';
+  if (history[2] == null && history[1] != null){
+    frame.innerHTML = '<p> 1: ' + history[1] + '</p>' +
+                      '<p> 2: ' + history[0] + '</p>';
+  }else if (history[1] == null && history[0] != null){
+    frame.innerHTML = '<p> 1: ' + history[0] + '</p>';
   }
+});
 
-  // Plus key
-  if (e.which == 107) {
-    $('[data-operator="add"]').trigger('click');
-  }
+modal.addEventListener('click', () => {
+  frame.classList.toggle('show');
+});
 
-  // Minus key
-  if (e.which == 109) {
-    $('[data-operator="subtract"]').trigger('click');
-  }
-
-  // Enter (or equals) key
-  if (e.which == 13 || e.keyCode == 187) {
-    $('[data-operator="equals"]').trigger('click');
-  }
-
-  // Clear key (cmd + c)
-  if (e.keyCode == 67) {
-    console.log('cmd + c');
-    $('[data-operator="clear"]').trigger('click');
-  }
-}

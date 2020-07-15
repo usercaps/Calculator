@@ -1,59 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>calc</title>
     <link rel="stylesheet" href="./style.css">
 </head>
-
 <body>
+    
     <div class="calculator">
-
-        <form method="GET" id="calc_form">
-            <input type="number" placeholder="0">
-
-            <div class="calculator-buttons">
-
-                <button class="calc-button" id="clear">CLEAR</button>
-                <button class="calc-button" id="persent">%</button>
-                <button class="calc-button" id="factorial">a!</button>
-                <button class="calc-button" id="square">a^2</button>
-                <button class="calc-button" id="memory">M</button>
-
-                <button class="calc-button" id="sin">sin</button>
-                <button class="calc-button" id="cos">cos</button>
-                <button class="calc-button" id="tg">tg</button>
-                <button class="calc-button" id="ctg">ctg</button>
-
-                <button class="calc-button" id="divide">/</button>
-
-                <button class="calc-button number seven" value="7">7</button>
-                <button class="calc-button number eight">8</button>
-                <button class="calc-button number nine">9</button>
-                <button class="calc-button" id="multiply">*</button>
-
-                <button class="calc-button number four">4</button>
-                <button class="calc-button number five">5</button>
-                <button class="calc-button number six">6</button>
-                <button class="calc-button" id="minus">-</button>
-
-                <button class="calc-button number one">1</button>
-                <button class="calc-button number two"> 2</button>
-                <button class="calc-button number three">3</button>
-                <button class="calc-button" id="plus">+</button>
-
-                <button class="calc-button number zero">0</button>
-                <button class="calc-button" id="dot">.</button>
-                <button class="calc-button" id="equally">=</button>
-
-
-            </div>
-        </form>
-    </div>
+        <div class="buttons input"><input type="text" class="display" readonly></div>
+        <div class="buttons clear">Clear</div>
+        <div class="buttons sin">sin</div>
+        <div class="buttons cos">cos</div>
+        <div class="buttons tan">tan</div>
+        <div class="buttons ctg">ctg</div>
+        <div class="buttons num">**</div>
+        <div class="buttons rad">rad</div>
+        <div class="buttons deg grey">deg</div>
+        <div class="buttons"></div>
+        <div class="buttons num">+</div>
+        <div class="buttons num">-</div>
+        <div class="buttons num">X</div>
+        <div class="buttons num">/</div>
+        <div class="buttons num">7</div>
+        <div class="buttons num">8</div>
+        <div class="buttons num">9</div>
+        <div class="buttons factorial">n!</div>
+        <div class="buttons num">4</div>
+        <div class="buttons num">5</div>
+        <div class="buttons num">6</div>
+        <div class="buttons num">%</div>
+        <div class="buttons num">1</div>
+        <div class="buttons num">2</div>
+        <div class="buttons num">3</div>
+        <div class="buttons equal">=</div>
+        <div class="buttons num zero">0</div>
+        <div class="buttons num">.</div>
+      </div>
+      <button class="modal">История</button>
+      <div class="hide">
+      </div>
 
     <script src="./script.js"></script>
 </body>
-
 </html>
